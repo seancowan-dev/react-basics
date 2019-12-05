@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Hello World</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
@@ -17,18 +19,79 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js">
     </script>
     <script type="text/babel">
-    function App(props) {
-        console.log(props)
+        function App(props) {
+        console.log(props.children)
         return(
-            <header>
-                {props.children}
+        <div className={props.containerClass}>
+            <Head name={props.fullName} className={props.headClass}/>
+            <main className={props.mainClass}>
+                <AboutSection name={props.firstName} className={props.sectionClasses[0]} innerClassName={props.innerAboutClass}/>
+                <ResumeSection className={props.sectionClasses[1]} />
+                <AddressSection className={props.sectionClasses[2]} />
+            </main>
+        </div>
+        );
+    };
+
+    function Head(props) {
+        return (
+            <header className={props.className}>
+                <h1>{props.name}</h1>
+                <h2>Online resume</h2>
             </header>
         );
     };
+
+    function AboutSection(props) {
+        return (
+            <section className={props.className}>
+                <img src="images/sally.jpg"></img>
+                <div className={props.innerClassName}><p>Hi I'm {props.name} Welcome to my online resume.  Below you will find out all you need to know about me.</p>
+                    <h2>Employment History</h2>
+                    <h3>Big Box Store</h3>
+                    <p>Assistant Manager</p>
+                    <p>2017-present</p>
+                    <p>Supervise other staff, handle cashouts at EOD, ensure all displays are orderly and well stocked and maintain a quality shopping experience for all customers.</p>
+                    <h3>Little Box Store</h3>
+                    <p>Sales Associate</p>
+                    <p>2014-2017</p>
+                    <p>Provide product knowledge and assistance for customers.  Utilize upselling methods to maximize a customer's purchases.  Ensure all displays in your assigned section are orderly and well stocked.</p>
+                </div>
+            </section>
+        );
+    }
+
+    function ResumeSection(props) {
+        return (
+        <section className={props.className}>
+            <h2>Education</h2>
+            <h3>College School Institute</h3>
+            <p>Sales Marketing</p>
+            <p>2 Year Diploma</p>
+            <p>A demanding full-immersion course with 100+ hours of internship built right in.</p>
+        </section>
+        );
+    }
+
+    function AddressSection(props) {
+        return (
+        <address className={props.className}>
+            <h2>Contact Information</h2>
+            <h3>Sally S. Student</h3>
+            <p>sallys@student.com</p>
+            <p>555-555-5555</p>
+        </address>            
+        );
+    }
       ReactDOM.render(
-    <App className='my-class'>
-    <h1>Current Page Title!</h1>
-  </App>,
+    <App 
+        innerAboutClass = 'inner-about-content'
+        sectionClasses = {['about-section', 'resume-section', 'address-section']}
+        mainClass = 'main-content'
+        headClass='header'
+        containerClass='container'
+        fullName='Sally S. Student'
+        firstName='Sally' />,
     document.querySelector("#application-root"));
     </script>
 </body>
